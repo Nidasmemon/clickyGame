@@ -7,7 +7,8 @@ class Home extends Component {
     state = {
         db,
         highScore: 0,
-        score: 0
+        score: 0,
+        message: "Click on an image to begin!"
     }
 
 
@@ -34,7 +35,8 @@ class Home extends Component {
 
                 if (!card.clicked) {
                     this.setState({
-                        score: this.state.score + 1
+                        score: this.state.score + 1,
+                        message: "You guessed correctly!"
                     })
 
                     if (this.state.score >= this.state.highScore) {
@@ -48,8 +50,8 @@ class Home extends Component {
                 }
                 else {
                     this.setState({
-                        score: 0
-
+                        score: 0,
+                        message: "You already guessed that one!"
                     })
                 }
 
@@ -78,11 +80,12 @@ class Home extends Component {
         return (
             <UIContainer>
                 <h1>Harry Potter Clicky Game</h1>  
-                <h3>Click an image</h3>
+                <h3 className={this.state.message === "You already guessed that one!" ? "animated heartBeat" : ""}>{this.state.message}</h3>
                 <h2><span>Score: {this.state.score}</span><span> | High Score: {this.state.highScore}</span></h2>
                 {console.log("score", this.state.score, "high score ", this.state.highScore)}
+                <div className={this.state.message === "You already guessed that one!" ? "animated shake" : ""}>
                 <Card database={this.state.db} handleSubmit={this.handleSubmit} />
-                
+                </div>
             </UIContainer>
         )
     }
